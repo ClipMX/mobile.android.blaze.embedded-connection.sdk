@@ -1,4 +1,4 @@
-package com.payclip.blaze.embbebed_connection.sdk.ui.theme
+package com.payclip.blaze.embedded_connection.embedded_connection_sdk.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -34,7 +34,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun EmbbebedconnectionsdkTheme(
+fun EmbeddedconnectionsdkTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

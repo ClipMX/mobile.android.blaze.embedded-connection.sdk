@@ -1,4 +1,4 @@
-package com.payclip.blaze.embbebed_connection.sdk
+package com.payclip.blaze.embedded_connection.sdk
 
 import org.junit.Test
 

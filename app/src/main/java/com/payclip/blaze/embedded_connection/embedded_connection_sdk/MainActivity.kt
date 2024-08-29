@@ -1,4 +1,4 @@
-package com.payclip.blaze.embbebed_connection.sdk
+package com.payclip.blaze.embedded_connection.embedded_connection_sdk
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,19 +9,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.payclip.blaze.embbebed_connection.sdk.ui.theme.EmbbebedconnectionsdkTheme
+import com.payclip.blaze.embedded_connection.embedded_connection_sdk.ui.theme.EmbeddedconnectionsdkTheme
+import com.payclip.blaze.embedded_connection.sdk.modules.dummy.domain.DummyObj
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            EmbbebedconnectionsdkTheme {
+            EmbeddedconnectionsdkTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val dummyObj = remember { DummyObj.instance() }
+
                     Greeting(
-                        name = "Android",
+                        name = dummyObj.getDummyString(),
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -41,7 +45,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    EmbbebedconnectionsdkTheme {
+    EmbeddedconnectionsdkTheme {
         Greeting("Android")
     }
 }

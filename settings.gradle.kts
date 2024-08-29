@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "embbebed-connection-sdk"
+rootProject.name = "EMC SDK"
 include(":app")
- 
+include(":embedded-connection-sdk")

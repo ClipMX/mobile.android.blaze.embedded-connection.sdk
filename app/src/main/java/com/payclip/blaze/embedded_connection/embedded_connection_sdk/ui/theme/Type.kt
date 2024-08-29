@@ -1,4 +1,4 @@
-package com.payclip.blaze.embbebed_connection.sdk.ui.theme
+package com.payclip.blaze.embedded_connection.embedded_connection_sdk.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

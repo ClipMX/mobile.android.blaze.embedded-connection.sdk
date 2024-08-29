@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.payclip.blaze.embbebed_connection.sdk"
+    namespace = "com.payclip.blaze.embedded_connection.embedded_connection_sdk"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.payclip.blaze.embbebed_connection.sdk"
+        applicationId = "com.payclip.blaze.embedded_connection.embedded_connection_sdk"
         minSdk = 22
         targetSdk = 34
         versionCode = 1
@@ -34,7 +34,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = libs.versions.jvmTarget.get()
+        jvmTarget =  libs.versions.jvmTarget.get()
     }
     buildFeatures {
         compose = true
@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(project(":embedded-connection-sdk"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
