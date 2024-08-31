@@ -1,10 +1,22 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(clipLibs.plugins.hilt) apply false
+    alias(clipLibs.plugins.firebase.crashlytics) apply false
+    alias(clipLibs.plugins.firebase.perf) apply false
+    alias(clipLibs.plugins.datadog) apply false
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force(clipLibs.kotlin.stdlib)
+    }
 }
 
 android {
-    namespace = "com.payclip.blaze.embedded_connection.sdk"
+    namespace = "com.payclip.blaze.emc.sdk"
     compileSdk = 34
 
     defaultConfig {
@@ -19,7 +31,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -40,4 +52,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Forking
+    implementation(libs.clip.commons.hardware)
+    implementation(libs.clip.commons)
+    implementation(libs.clip.printer)
 }

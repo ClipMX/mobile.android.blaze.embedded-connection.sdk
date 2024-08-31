@@ -1,12 +1,10 @@
-package com.payclip.blaze.embedded_connection.embedded_connection_sdk
+package com.payclip.blaze.emc.embedded_connection_sdk
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -21,7 +19,7 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals(
             "com.payclip.blaze.embedded_connection.embedded_connection_sdk",
-            appContext.packageName
+            appContext.packageName,
         )
     }
 }
