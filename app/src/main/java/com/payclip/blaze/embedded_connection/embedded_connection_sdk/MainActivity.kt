@@ -13,19 +13,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.payclip.blaze.embedded_connection.embedded_connection_sdk.ui.theme.EmbeddedconnectionsdkTheme
-import com.payclip.blaze.embedded_connection.sdk.modules.dummy.domain.DummyObj
+import com.payclip.blaze.embedded_connection.sdk.shared.framework.providers.EmbeddedConnectionSDKProvider
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             EmbeddedconnectionsdkTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val dummyObj = remember { DummyObj.instance() }
 
+                val embeddedConnectionSDK = remember {
+                    EmbeddedConnectionSDKProvider.initialize(applicationContext)
+                }
+
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = dummyObj.getDummyString(),
+                        name = embeddedConnectionSDK.check(),
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

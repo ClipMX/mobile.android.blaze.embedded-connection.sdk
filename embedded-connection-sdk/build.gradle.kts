@@ -1,6 +1,18 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(clipLibs.plugins.hilt) apply false
+    alias(clipLibs.plugins.firebase.crashlytics) apply false
+    alias(clipLibs.plugins.firebase.perf) apply false
+    alias(clipLibs.plugins.datadog) apply false
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
+}
+
+configurations.all{
+    resolutionStrategy{
+        force(clipLibs.kotlin.stdlib)
+    }
 }
 
 android {
@@ -40,4 +52,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.clip.commons.hardware)
+    implementation(libs.clip.commons)
+
+    //Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
 }

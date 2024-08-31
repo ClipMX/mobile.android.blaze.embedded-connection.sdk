@@ -1,4 +1,6 @@
 [versions]
+hiltAndroid = "2.49"
+hiltAndroidCompiler = "2.46.1"
 jvmTarget = "18"
 androidxComposeCompiler = "1.4.3"
 agp = "8.5.2"
@@ -9,11 +11,23 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
-composeBom = "2024.04.01"
+composeBom = "2024.08.00"
 appcompat = "1.6.1"
 material = "1.10.0"
+hiltWork = "1.2.0"
+commonshardware = "0.6.7.1"
+commons = "1.5.0.0"
+
 
 [libraries]
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltWork" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
+clip-commons = { group = "com.payclip.blaze", name = "commons", version.ref = "commons" }
+clip-commons-hardware = { group = "com.payclip.blaze", name = "commons-hardware", version.ref = "commonshardware" }
+
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
