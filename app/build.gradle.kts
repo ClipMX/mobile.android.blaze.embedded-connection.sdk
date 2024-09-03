@@ -1,14 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.payclip.blaze.embedded_connection.embedded_connection_sdk"
+    namespace = "com.payclip.blaze.emc.embedded_connection_sdk"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.payclip.blaze.embedded_connection.embedded_connection_sdk"
+        applicationId = "com.payclip.blaze.emc.embedded_connection_sdk"
         minSdk = 22
         targetSdk = 34
         versionCode = 1
@@ -25,7 +26,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -34,7 +35,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget =  libs.versions.jvmTarget.get()
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     buildFeatures {
         compose = true
@@ -67,4 +68,12 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+    // Compose dependencies
+    implementation(clipLibs.androidx.compose.runtime.livedata)
+    implementation(clipLibs.androidx.compose.navigation)
+    implementation(clipLibs.androidx.lifecycle.runtimeCompose)
+    implementation(clipLibs.androidx.lifecycle.viewModelCompose)
+
 }

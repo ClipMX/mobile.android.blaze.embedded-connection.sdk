@@ -9,11 +9,21 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
-composeBom = "2024.04.01"
+composeBom = "2024.08.00"
 appcompat = "1.6.1"
 material = "1.10.0"
+commonshardware = "0.6.7.1"
+commons = "1.5.0.0"
+printer = "0.2.1.0"
+
 
 [libraries]
+clip-commons = { group = "com.payclip.blaze", name = "commons", version.ref = "commons" }
+clip-commons-hardware = { group = "com.payclip.blaze", name = "commons-hardware", version.ref = "commonshardware" }
+clip-printer = { group = "com.payclip.blaze", name = "printer", version.ref = "printer" }
+
+
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

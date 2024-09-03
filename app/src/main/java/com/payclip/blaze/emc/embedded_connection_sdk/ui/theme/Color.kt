@@ -1,4 +1,4 @@
-package com.payclip.blaze.embedded_connection.embedded_connection_sdk.ui.theme
+package com.payclip.blaze.emc.embedded_connection_sdk.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
