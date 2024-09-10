@@ -26,6 +26,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.payclip.blaze.emc.embedded_connection_sdk.ui.theme.EmbeddedconnectionsdkTheme
 import com.payclip.blaze.emc.sdk.modules.printer.core.ClipPrinter
 import com.payclip.blaze.emc.sdk.modules.printer.core.PrintableContent
+import com.payclip.blaze.emc.sdk.modules.printer.domain.listeners.ClipPrinterListener
 import com.payclip.blaze.emc.sdk.modules.printer.domain.models.Divider
 import com.payclip.blaze.emc.sdk.modules.printer.domain.models.Heading
 import com.payclip.blaze.emc.sdk.modules.printer.domain.models.ItemList
@@ -34,6 +35,7 @@ import com.payclip.blaze.emc.sdk.modules.printer.domain.models.ListPrintable
 import com.payclip.blaze.emc.sdk.modules.printer.domain.models.PrintableImage
 import com.payclip.blaze.emc.sdk.modules.printer.domain.models.RowContent
 import com.payclip.blaze.emc.sdk.modules.printer.domain.models.Section
+import com.payclip.blaze.emc.sdk.modules.printer.domain.types.ClipPrinterError
 import com.payclip.blaze.emc.sdk.modules.printer.domain.types.FontSize
 import com.payclip.blaze.emc.sdk.modules.printer.domain.types.TextAlignment
 
@@ -105,7 +107,18 @@ fun PrinterButton(modifier: Modifier = Modifier) {
     Button(
         modifier = modifier,
         onClick = {
-            clipPrinter.print(printableContent(bitmap, secondBitmap))
+            clipPrinter.print(
+                printableContent(bitmap, secondBitmap),
+                object : ClipPrinterListener {
+                    override fun onSuccessfulPrint() {
+                        val success = "Success"
+                    }
+
+                    override fun onFailedPrint(clipPrinterError: ClipPrinterError) {
+                        val error = "Error"
+                    }
+                },
+            )
         },
     ) {
         Text(text = "Print")

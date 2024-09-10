@@ -5,11 +5,14 @@ import android.util.Log
 import com.payclip.blaze.commons_hardware.printer.EmbeddedPrinterBuilder
 import com.payclip.blaze.commons_hardware.shared.ClipReaderType
 import com.payclip.blaze.commons_hardware.shared.ReaderTypeEnum
+import com.payclip.blaze.emc.sdk.modules.printer.adapters.forking.printer.toClipPrinterError
 import com.payclip.blaze.emc.sdk.modules.printer.domain.exceptions.ClipPrinterNotBuiltException
+import com.payclip.blaze.emc.sdk.modules.printer.domain.listeners.ClipPrinterListener
 import com.payclip.blaze.emc.sdk.modules.printer.domain.models.Footer
 import com.payclip.blaze.emc.sdk.modules.printer.domain.models.Header
 import com.payclip.blaze.emc.sdk.shared.domain.exceptions.ContextNotInitializedException
 import com.payclip.blaze.emc.sdk.shared.domain.utils.setupReaderDevice
+import com.payclip.blaze.printer.core.domain.PrintResult
 import com.payclip.blaze.printer.core.domain.Printer
 
 /**
@@ -50,19 +53,30 @@ class ClipPrinter private constructor(
      *
      * @param printableContent The content to be printed.
      */
-    fun print(printableContent: PrintableContent) {
+    fun print(
+        printableContent: PrintableContent,
+        clipPrinterListener: ClipPrinterListener,
+    ) {
         printableContent.header?.let { header: Header ->
             header.appendComponent(devicePrinter)
         }
-        printableContent.printableList.forEach {itemPrintable ->
+        printableContent.printableList.forEach { itemPrintable ->
             itemPrintable.appendComponent(devicePrinter)
-
         }
         printableContent.footer?.let { footer: Footer ->
             footer.appendComponent(devicePrinter)
         }
 
         devicePrinter.print { printResult ->
+            when (printResult) {
+                is PrintResult.Success -> {
+                    clipPrinterListener.onSuccessfulPrint()
+                }
+
+                is PrintResult.Failure -> {
+                    clipPrinterListener.onFailedPrint(printResult.error.toClipPrinterError())
+                }
+            }
             Log.i("ClipPrinter", "Result: $printResult")
         }
     }
