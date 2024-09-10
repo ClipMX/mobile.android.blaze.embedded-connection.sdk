@@ -7,6 +7,7 @@ plugins {
     alias(clipLibs.plugins.datadog) apply false
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    id("maven-publish")
 }
 
 configurations.all {
@@ -41,6 +42,35 @@ android {
     }
     kotlinOptions {
         jvmTarget = libs.versions.jvmTarget.get()
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.payclip.blaze"
+                artifactId = "embedded-connection.sdk"
+                // the version is provided by the TAG name
+                version = System.getenv("GITHUB_REF_NAME") ?: "0.0.0.0"
+
+                afterEvaluate {
+                    from(components["release"])
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url =
+                    uri("https://maven.pkg.github.com/ClipMX/mobile.android.blaze.embedded-connection.sdk")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
     }
 }
 
