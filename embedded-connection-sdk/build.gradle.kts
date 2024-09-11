@@ -36,6 +36,10 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_18
         targetCompatibility = JavaVersion.VERSION_18
@@ -43,8 +47,22 @@ android {
     kotlinOptions {
         jvmTarget = libs.versions.jvmTarget.get()
     }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
+val sourcesJar: Jar = tasks.create("sourcesJar", Jar::class.java) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets.getByName("main").java.srcDirs)
+}
+
+project.artifacts {
+    archives(sourcesJar)
+}
 afterEvaluate {
     publishing {
         publications {
@@ -56,6 +74,7 @@ afterEvaluate {
 
                 afterEvaluate {
                     from(components["release"])
+                    artifact(project.tasks.getByName("sourcesJar"))
                 }
             }
         }
