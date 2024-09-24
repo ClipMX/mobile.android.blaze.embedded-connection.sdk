@@ -1,4 +1,3 @@
-import java.io.FileInputStream
 import java.util.Properties
 
 pluginManagement {
@@ -9,12 +8,22 @@ pluginManagement {
     }
 }
 
+
+val user = System.getenv("PACKAGES_USERNAME") ?: findInGradleProperties("github.user")
+val token = System.getenv("PACKAGES_TOKEN") ?: findInGradleProperties("github.token")
+
+fun findInGradleProperties(env: String): String? {
+    val gradlePropertiesFile = File(System.getProperty("user.home"), ".gradle/gradle.properties")
+    return if (gradlePropertiesFile.exists()) {
+        val properties = Properties()
+        gradlePropertiesFile.inputStream().use { input -> properties.load(input) }
+        properties.getProperty(env)
+    } else {
+        null
+    }
+}
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
-    val gradlePropertiesPath = System.getProperty("user.home") + "/.gradle/gradle.properties"
-    val globalPropertiesFile = file(gradlePropertiesPath)
-    val globalProperties = Properties()
-    globalProperties.load(FileInputStream(globalPropertiesFile))
 
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -25,14 +34,14 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://maven.pkg.github.com/ClipMX/*")
             credentials {
-                username = globalProperties.getProperty("github.user") ?: System.getenv("USERNAME") ?: ""
-                password = globalProperties.getProperty("github.token") ?: System.getenv("TOKEN") ?: ""
+                username = user
+                password = token
             }
         }
 
         versionCatalogs {
             create("clipLibs") {
-                from("com.payclip.blaze:versions-catalog:0.3.1")
+                from("com.payclip.blaze:versions-catalog:0.6.0")
             }
         }
     }
