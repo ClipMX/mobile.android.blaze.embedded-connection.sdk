@@ -1,5 +1,7 @@
 package com.payclip.blaze.emc.sdk.modules.printer.domain.models
 
+import com.payclip.blaze.commons.device.Device
+import com.payclip.blaze.commons.device.DeviceService
 import com.payclip.blaze.emc.sdk.modules.printer.domain.exceptions.ItemListContentException
 import com.payclip.blaze.emc.sdk.modules.printer.domain.types.FontSize
 import com.payclip.blaze.emc.sdk.modules.printer.domain.types.TextAlignment
@@ -22,11 +24,11 @@ class ItemList(
     override var boldEnabled: Boolean = false,
     var rowContent: RowContent? = null,
 ) : PrintableText(
-        text = text,
-        alignment = TextAlignment.LEFT,
-        boldEnabled = boldEnabled,
-        fontSize = FontSize.SMALL,
-    ) {
+    text = text,
+    alignment = TextAlignment.LEFT,
+    boldEnabled = boldEnabled,
+    fontSize = FontSize.SMALL,
+) {
     private lateinit var devicePrinter: Printer
 
     init {
@@ -75,7 +77,9 @@ class ItemList(
         isBold: Boolean = false,
         biggerLetter: Boolean = false,
     ) {
-        val maxLen = if (isBold && biggerLetter) 29 else 32
+        val maxLenByDevice =
+            if (DeviceService.device == Device.TOTAL2) SPACE_BETWEEN_TEXTS_LARGE else SPACE_BETWEEN_TEXTS
+        val maxLen = if (isBold && biggerLetter) 29 else maxLenByDevice
         val textsLen = text1.length + text2.length
         val spaceBetween =
             if (textsLen > maxLen) {
@@ -88,15 +92,18 @@ class ItemList(
         devicePrinter.appendText(
             text = separatedText,
             fontSize =
-                if (isBold &&
-                    biggerLetter
-                ) {
-                    com.payclip.blaze.printer.core.domain.FontSize.MEDIUM
-                } else {
-                    com.payclip.blaze.printer.core.domain.FontSize.SMALL
-                },
+            if (isBold && biggerLetter) {
+                com.payclip.blaze.printer.core.domain.FontSize.MEDIUM
+            } else {
+                com.payclip.blaze.printer.core.domain.FontSize.SMALL
+            },
             alignment = AlignMode.LEFT,
             isBoldFont = isBold,
         )
+    }
+
+    companion object {
+        private const val SPACE_BETWEEN_TEXTS = 32
+        private const val SPACE_BETWEEN_TEXTS_LARGE = 38
     }
 }

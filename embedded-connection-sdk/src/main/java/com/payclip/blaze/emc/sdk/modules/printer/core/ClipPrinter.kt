@@ -2,6 +2,8 @@ package com.payclip.blaze.emc.sdk.modules.printer.core
 
 import android.content.Context
 import android.util.Log
+import com.payclip.blaze.commons.device.Device
+import com.payclip.blaze.commons.device.DeviceService
 import com.payclip.blaze.commons_hardware.printer.EmbeddedPrinterBuilder
 import com.payclip.blaze.commons_hardware.shared.ClipReaderType
 import com.payclip.blaze.commons_hardware.shared.ReaderTypeEnum
@@ -66,7 +68,9 @@ class ClipPrinter private constructor(
         printableContent.footer?.let { footer: Footer ->
             footer.appendComponent(devicePrinter)
         }
-
+        if(DeviceService.device == Device.TOTAL2){
+            devicePrinter.appendMultipleSpace(4)
+        }
         devicePrinter.print { printResult ->
             when (printResult) {
                 is PrintResult.Success -> {
