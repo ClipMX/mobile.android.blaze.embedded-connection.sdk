@@ -71,14 +71,14 @@ fun HomeScreen() {
             Modifier
                 .fillMaxWidth()
                 .verticalScroll(scrollState)
-                .padding(24.dp),
+                .padding(innerPadding),
             horizontalArrangement = Arrangement.Center
         ) {
             Greeting(
                 name = "CLIP PRINTER ",
                 modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(top = 24.dp),
             )
             if (state is HomeScreenState.Printing) {
                 CircularProgressIndicator(modifier = Modifier.padding(top = 24.dp))
