@@ -1,5 +1,7 @@
 package com.payclip.blaze.emc.sdk.modules.printer.domain.models
 
+import com.payclip.blaze.commons.device.Device
+import com.payclip.blaze.commons.device.DeviceService
 import com.payclip.blaze.emc.sdk.modules.printer.domain.types.FontSize
 import com.payclip.blaze.emc.sdk.modules.printer.domain.types.TextAlignment
 import com.payclip.blaze.emc.sdk.modules.printer.domain.types.extensionFunctions.toAlignMode
@@ -17,11 +19,11 @@ class Divider(
     var divider: Char = '-',
     var title: String? = null,
 ) : PrintableText(
-        text = divider.toString(),
-        alignment = TextAlignment.CENTER,
-        boldEnabled = false,
-        fontSize = FontSize.MEDIUM,
-    ) {
+    text = divider.toString(),
+    alignment = TextAlignment.CENTER,
+    boldEnabled = false,
+    fontSize = FontSize.MEDIUM,
+) {
     private lateinit var devicePrinter: Printer
 
     /**
@@ -60,7 +62,9 @@ class Divider(
     private fun printDividerWithText() {
         val text = title
         val textLen = text?.length ?: 0
-        val mustFill = (TIMES_WITH_TEXT - textLen).div(2)
+        val timesWithText =
+            if (DeviceService.device == Device.TOTAL2) TIMES_WITH_TEXT_LARGE else TIMES_WITH_TEXT
+        val mustFill = (timesWithText - textLen).div(2)
         val filler = divider.toString().repeat(mustFill)
         val dividerWithText = filler + text + filler
 
@@ -73,7 +77,8 @@ class Divider(
     }
 
     companion object {
-        const val TIMES = 29
-        const val TIMES_WITH_TEXT = 32
+        private const val TIMES = 29
+        private const val TIMES_WITH_TEXT = 32
+        private const val TIMES_WITH_TEXT_LARGE = 38
     }
 }
