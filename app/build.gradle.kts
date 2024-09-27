@@ -75,5 +75,6 @@ dependencies {
     implementation(clipLibs.androidx.compose.navigation)
     implementation(clipLibs.androidx.lifecycle.runtimeCompose)
     implementation(clipLibs.androidx.lifecycle.viewModelCompose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
 }
