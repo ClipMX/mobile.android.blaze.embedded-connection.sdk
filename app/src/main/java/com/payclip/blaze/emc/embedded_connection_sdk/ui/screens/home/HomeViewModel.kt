@@ -120,7 +120,9 @@ class HomeViewModel : ViewModel() {
                     alignment = TextAlignment.CENTER,
                     lineBreaksTop = 1,
                 ),
-            ).addPrintable(PrintableImage(secondImage!!))
+            )
+            .addPrintable(Divider('#'))
+            .addPrintable(PrintableImage(secondImage!!))
             .addPrintable(Divider(title = "COPY OF RECEIPT"))
             .addPrintable(itemListWithDivider)
             .addPrintable(LineBreak(4))
