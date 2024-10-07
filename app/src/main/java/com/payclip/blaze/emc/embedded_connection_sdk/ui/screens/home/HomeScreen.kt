@@ -72,7 +72,8 @@ fun HomeScreen() {
                 .fillMaxWidth()
                 .verticalScroll(scrollState)
                 .padding(innerPadding),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            maxItemsInEachRow = 1
         ) {
             Greeting(
                 name = "CLIP PRINTER ",
@@ -94,6 +95,17 @@ fun HomeScreen() {
                     viewModel = viewModel
                 )
             }
+
+            Button(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 8.dp)
+                    .padding(top = 24.dp)
+                    .height(56.dp)
+                    .fillMaxWidth(), onClick = {}) {
+                Text("Read NFC")
+            }
+
         }
 
         if (scrollState.canScrollForward) {

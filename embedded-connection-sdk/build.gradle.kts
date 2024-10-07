@@ -106,4 +106,7 @@ dependencies {
     implementation(libs.clip.commons.hardware)
     implementation(libs.clip.commons)
     implementation(libs.clip.printer)
+
+    // Nexgo printer
+    implementation(clipLibs.nextgoSmartpos)
 }
