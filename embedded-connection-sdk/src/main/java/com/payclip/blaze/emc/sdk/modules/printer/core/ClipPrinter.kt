@@ -54,6 +54,8 @@ class ClipPrinter private constructor(
      * Prints the header, then each item in the `printableList`, and finally the footer (if available).
      *
      * @param printableContent The content to be printed.
+     * @param clipPrinterListener A listener to receive the print result. This listener will be notified
+     *                            when the print operation is successful or if it fails.
      */
     fun print(
         printableContent: PrintableContent,
